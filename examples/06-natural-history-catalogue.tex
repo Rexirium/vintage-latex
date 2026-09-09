@@ -1,0 +1,89 @@
+%!TEX program = lualatex
+% SPDX-License-Identifier: CC-BY-SA-4.0
+\documentclass[11pt]{article}
+
+\usepackage{iftex}
+\ifLuaTeX\else
+  \PackageError{vintage-latex}{This example requires LuaLaTeX}
+    {Run lualatex, not pdflatex or xelatex.}
+\fi
+
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage[tracking=true,protrusion=false,expansion=false]{microtype}
+
+\defaultfontfeatures{Renderer=HarfBuzz}
+\setmainfont{EB Garamond}[Numbers={OldStyle,Proportional}]
+\definecolor{cataloguepaper}{HTML}{F5EBD8}
+\definecolor{printerink}{HTML}{292119}
+\pagecolor{cataloguepaper}
+\color{printerink}
+\geometry{a5paper,top=19mm,bottom=21mm,left=20mm,right=20mm}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{.7em}
+
+\newcommand{\entry}[4]{%
+  \par\medskip
+  \noindent\makebox[2.25em][l]{\textbf{#1}}%
+  \textit{#2}\dotfill\textls[35]{\textsc{#3}}\par
+  \hangindent=2.25em\hangafter=0
+  \small #4\par
+}
+
+\begin{document}
+
+\begin{center}
+  {\small\textls[120]{\textsc{Museum of Practical Natural History}}}\par
+  \vspace{.35em}
+  {\LARGE Catalogue of Minerals}\par
+  \vspace{.2em}
+  {\itshape Cabinet B: metallic and vitreous specimens}\par
+  \vspace{.55em}
+  \rule{\linewidth}{1pt}\par
+  \vspace{.16em}
+  \rule{\linewidth}{.3pt}
+\end{center}
+
+\vspace{.8em}
+
+\entry{B.1}{Galena}{Cumberland}{Lead-grey cubes with three perfect cleavages;
+the fresh fracture is bright, but the exposed face has dulled. Specific gravity
+recorded as 7.48.}
+
+\entry{B.2}{Chalcopyrite}{Cornwall}{Brass-yellow massive specimen with an
+iridescent tarnish. The streak is greenish black and should be observed on an
+unglazed tile.}
+
+\entry{B.3}{Hematite}{Elba}{Botryoidal surface over a compact red-brown mass.
+The powdered streak distinguishes it from magnetite even where the exterior is
+nearly black.}
+
+\entry{B.4}{Fluorite}{Derbyshire}{Pale violet interpenetrating cubes upon
+limestone. Four cleavage directions yield octahedral fragments under a light
+blow.}
+
+\entry{B.5}{Quartz}{St. Gotthard}{A clear six-sided prism terminated by paired
+rhombohedra. Minute chlorite inclusions mark an earlier stage of growth.}
+
+\vspace{1em}
+\begin{center}
+  \rule{.62\linewidth}{.35pt}\par
+  \vspace{.45em}
+  {\footnotesize\textls[70]{\textsc{Key to the entries}}}\par
+  \vspace{.35em}
+  \begin{tabular}{@{}rl@{}}
+    Roman type & observed description\\
+    \textit{Italic type} & accepted specimen name\\
+    \textsc{Small capitals} & locality or collection\\
+    Old-style figures & measurements and catalogue numbers
+  \end{tabular}
+\end{center}
+
+\vfill
+\begin{center}
+  {\scriptsize Revised after inspection of the cabinet, 1906}
+\end{center}
+
+\end{document}

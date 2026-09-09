@@ -1,0 +1,33 @@
+# SPDX-License-Identifier: CC-BY-SA-4.0
+# Compile all twenty examples on TeX Live and keep the PDFs as artifacts.
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: texlive/texlive:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch fiziko (GPL-3.0, not vendored)
+        run: git clone --depth 1 https://github.com/jemmybutton/fiziko.git ../fiziko
+      - name: Compile every example
+        run: sh ./build.sh ../fiziko
+      - name: Convert the MetaPost EPS output to PDF
+        run: |
+          for eps in build/*-1.eps; do
+            gs -q -dBATCH -dNOPAUSE -dEPSCrop -sDEVICE=pdfwrite \
+              -sOutputFile="${eps%-1.eps}.pdf" "$eps"
+          done
+      - name: Show logs of failed runs
+        if: failure()
+        run: for f in build/*.log; do echo "== $f"; grep -A5 '^!' "$f" || true; done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pdfs
+          path: build/*.pdf

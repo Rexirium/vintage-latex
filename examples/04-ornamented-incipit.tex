@@ -1,0 +1,95 @@
+%!TEX program = lualatex
+% SPDX-License-Identifier: CC-BY-SA-4.0
+\documentclass[11pt]{article}
+
+\usepackage{iftex}
+\ifLuaTeX\else
+  \PackageError{vintage-latex}{This example requires LuaLaTeX}
+    {Run lualatex, not pdflatex or xelatex.}
+\fi
+
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage[tracking=true,protrusion=false,expansion=false]{microtype}
+\usepackage{tikz}
+
+\defaultfontfeatures{Renderer=HarfBuzz}
+\setmainfont{EB Garamond}[
+  Numbers={OldStyle,Proportional},
+  Ligatures={TeX,Common,Rare}
+]
+
+\definecolor{ragpaper}{HTML}{F3E8D5}
+\definecolor{printerink}{HTML}{272019}
+\pagecolor{ragpaper}
+\color{printerink}
+\geometry{a5paper,top=22mm,bottom=24mm,left=22mm,right=22mm}
+\pagestyle{empty}
+\setlength{\parindent}{1em}
+\setlength{\emergencystretch}{.7em}
+
+% A three-line initial built only from TeX primitives. The following word is
+% a separate argument so it can be tracked small capitals.
+\newcommand{\incipit}[2]{%
+  \noindent
+  \parshape 4
+    3.15em \dimexpr\linewidth-3.15em\relax
+    3.15em \dimexpr\linewidth-3.15em\relax
+    3.15em \dimexpr\linewidth-3.15em\relax
+    0pt \linewidth
+  \makebox[0pt][r]{%
+    \raisebox{-1.45\baselineskip}[0pt][0pt]{%
+      \fboxsep=2.2pt\fboxrule=.45pt
+      \fbox{\fontsize{39}{39}\selectfont #1}}%
+    \hspace{.22em}}%
+  \textls[85]{\textsc{#2}}%
+}
+
+\newcommand{\ornament}{%
+  \begin{center}
+  \begin{tikzpicture}[x=1cm,y=1cm,line width=.38pt,color=printerink]
+    \draw (-2.25,0)--(-.45,0) ( .45,0)--(2.25,0);
+    \draw (-.42,0) .. controls (-.22,.30) and (-.08,.30) .. (0,0)
+                    .. controls ( .08,-.30) and ( .22,-.30) .. (.42,0);
+    \draw (-.42,0) .. controls (-.22,-.30) and (-.08,-.30) .. (0,0)
+                    .. controls ( .08,.30) and ( .22,.30) .. (.42,0);
+    \fill (0,0) circle[radius=.65pt];
+  \end{tikzpicture}
+  \end{center}
+}
+
+\begin{document}
+
+\begin{center}
+  {\small\textls[135]{\textsc{A Short Account}}}\par
+  \vspace{.35em}
+  {\Large\textit{of the Air-Pump}}\par
+  \vspace{.3em}
+  {\footnotesize with observations made in a closed receiver}
+\end{center}
+
+\ornament
+
+\incipit{W}{hen the receiver} had been exhausted by repeated strokes of the
+piston, the enclosed bladder enlarged, although no hand was laid upon it. Upon
+admitting the outward air, it returned by degrees to its former compass. This
+alteration was entered in the journal before any cause was assigned.
+
+The arrangement separates three effects that are often bundled together as
+``old book style'': an ornament made from vector strokes, a boxed initial made
+from ordinary TeX, and a narrow text measure. Each can be removed without
+disturbing the other two.
+
+\ornament
+
+\begin{center}
+  \footnotesize\textit{Experiment performed in the winter quarter, 1672.}
+\end{center}
+
+\vfill
+\begin{center}
+  {\scriptsize\textls[120]{\textsc{London: Printed for the Society}}}
+\end{center}
+
+\end{document}

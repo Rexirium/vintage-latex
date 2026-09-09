@@ -1,0 +1,138 @@
+%!TEX program = lualatex
+% SPDX-License-Identifier: CC-BY-SA-4.0
+% Requires: https://github.com/jemmybutton/fiziko (GPL-3.0)
+% Set MPINPUTS to the directory containing fiziko.mp before running lualatex.
+\documentclass[11pt]{article}
+
+\usepackage{iftex}
+\ifLuaTeX\else
+  \PackageError{vintage-latex}{This example requires LuaLaTeX}
+    {Run lualatex, not pdflatex or xelatex.}
+\fi
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage[tracking=true,protrusion=false,expansion=false]{microtype}
+\usepackage{luamplib}
+
+\setmainfont{EB Garamond}[Numbers={OldStyle,Proportional}]
+\setmathfont{Garamond-Math.otf}
+\definecolor{ragpaper}{HTML}{F3E9D6}
+\definecolor{printerink}{HTML}{25201B}
+\pagecolor{ragpaper}
+\color{printerink}
+\geometry{a4paper,top=20mm,bottom=20mm,left=24mm,right=24mm}
+\pagestyle{empty}
+\setlength{\parindent}{1.1em}
+
+\mplibforcehmode
+\everymplib{
+  input fiziko.mp;
+  randomseed := 1969;
+  defineMinStrokeWidth(0.2pt);
+  color inkcolor; inkcolor := (0.145, 0.125, 0.106);
+  drawoptions(withcolor inkcolor);
+  beginfig(1);
+}
+\everyendmplib{endfig;}
+
+\begin{document}
+
+\begin{center}
+  {\small\textls[120]{\textsc{Plate III}}}\par
+  \vspace{.3em}
+  {\Large The Phases of the Moon}\par
+  \vspace{.2em}
+  {\itshape explained by the position of the moon in its orbit}
+\end{center}
+
+\vspace{1.2em}
+
+\begin{center}
+\begin{mplibcode}
+  % The sun is far to the left. One light direction, kept fixed, shades the
+  % earth and every moon alike; the phases follow from geometry alone.
+  defineLightDirection(-1/2pi + 0.001, 0);
+  numeric orbit, moonDiam;
+  orbit := 4.1cm; moonDiam := 0.95cm;
+
+  for i = 0 upto 4:
+    drawarrow (-7.3cm, -2.4cm + 1.2cm*i) -- (-5.9cm, -2.4cm + 1.2cm*i)
+      withpen pencircle scaled 0.35pt;
+  endfor;
+  label.top(btex \small\itshape light of the sun etex, (-6.6cm, 2.55cm));
+
+  draw fullcircle scaled 2orbit dashed evenly scaled 0.7
+    withpen pencircle scaled 0.3pt;
+  draw globe(1.35cm, 40, 20);
+
+  for i = 0 upto 7:
+    draw sphere.s(moonDiam) shifted (orbit * dir(180 + 45i));
+  endfor;
+  label.lft(btex \footnotesize\itshape new etex, (-orbit - 0.6cm, 0));
+  label.rt(btex \footnotesize\itshape full etex, (orbit + 0.6cm, 0));
+  label.top(btex \footnotesize\itshape first quarter etex, (0, orbit + 0.6cm));
+  label.bot(btex \footnotesize\itshape last quarter etex, (0, -orbit - 0.6cm));
+\end{mplibcode}
+\end{center}
+
+\vspace{.6em}
+\begin{center}
+  {\small\itshape Fig.\ 1. The moon in eight positions of its orbit, the
+  earth in the centre, and the sun's light coming from the left.}
+\end{center}
+
+\vspace{1.4em}
+
+\begin{center}
+\begin{mplibcode}
+  % The same eight moons as they appear from the earth. Now the sphere is
+  % fixed before the observer and the light is turned about it instead:
+  % fiziko's zero angle lights the face toward the observer (full), and an
+  % angle of pi lights the far side (new).
+  numeric moonDiam; moonDiam := 1.45cm;
+  for i = 0 upto 7:
+    defineLightDirection(-pi + 1/4pi*i + 0.001, 0);
+    draw sphere.s(moonDiam) shifted (2.15cm*i, 0);
+  endfor;
+  for i = 0 upto 7:
+    draw fullcircle scaled moonDiam shifted (2.15cm*i, 0)
+      withpen pencircle scaled 0.3pt;
+  endfor;
+\end{mplibcode}
+\end{center}
+
+\vspace{.4em}
+\begin{center}
+\small\itshape
+\setlength{\tabcolsep}{0pt}
+\begin{tabular}{*{8}{p{2.15cm}}}
+  \centering new & \centering crescent & \centering first quarter &
+  \centering gibbous & \centering full & \centering gibbous &
+  \centering last quarter & \centering crescent \tabularnewline
+\end{tabular}
+\end{center}
+\begin{center}
+  {\small\itshape Fig.\ 2. The same, as seen from the earth.}
+\end{center}
+
+\vspace{1.2em}
+\noindent\textls[70]{\textsc{The moon}} has no light of its own, and shows
+us only so much of its sunlit half as is turned toward the earth. When it
+stands between us and the sun that half is wholly hidden, and the moon is
+new; when the earth stands between, the whole of it is seen, and the moon is
+full. In the quarters the boundary of light and shade appears as a straight
+line, and in the gibbous phases it is convex, though it is at all times the
+edge of one and the same circle seen obliquely.
+
+\vfill
+\footnotesize\noindent
+Both figures use one shading routine. In the first the light is held fixed
+and the moons are moved around the earth; in the second the moon is held
+before the observer and the light is turned about it. That the two rows agree
+is the whole of the explanation, and the agreement is computed rather than
+drawn.
+
+\end{document}

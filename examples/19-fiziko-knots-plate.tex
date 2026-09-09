@@ -1,0 +1,112 @@
+%!TEX program = lualatex
+% SPDX-License-Identifier: CC-BY-SA-4.0
+% Requires: https://github.com/jemmybutton/fiziko (GPL-3.0)
+% Set MPINPUTS to the directory containing fiziko.mp before running lualatex.
+\documentclass[11pt]{article}
+
+\usepackage{iftex}
+\ifLuaTeX\else
+  \PackageError{vintage-latex}{This example requires LuaLaTeX}
+    {Run lualatex, not pdflatex or xelatex.}
+\fi
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage[tracking=true,protrusion=false,expansion=false]{microtype}
+\usepackage{luamplib}
+
+\setmainfont{EB Garamond}[Numbers={OldStyle,Proportional}]
+\setmathfont{Garamond-Math.otf}
+\definecolor{ragpaper}{HTML}{F3E9D6}
+\definecolor{printerink}{HTML}{25201B}
+\pagecolor{ragpaper}
+\color{printerink}
+\geometry{a5paper,landscape,top=16mm,bottom=16mm,left=18mm,right=18mm}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+\mplibforcehmode
+\everymplib{
+  input fiziko.mp;
+  randomseed := 11;
+  defineMinStrokeWidth(0.2pt);
+  defineLightDirection(-1/8pi, 1/8pi);
+  color inkcolor; inkcolor := (0.145, 0.125, 0.106);
+  drawoptions(withcolor inkcolor);
+  beginfig(1);
+}
+\everyendmplib{endfig;}
+
+\newcommand{\knotcell}[2]{% figure code, caption
+  \begin{minipage}[t]{.31\linewidth}
+    \centering
+    \begin{mplibcode}
+      #1
+    \end{mplibcode}\par
+    \vspace{.5em}
+    {\small\itshape #2}
+  \end{minipage}%
+}
+
+\begin{document}
+
+\begin{center}
+  {\small\textls[120]{\textsc{Plate IX}}}\par
+  \vspace{.3em}
+  {\Large Of Knots}\par
+  \vspace{.2em}
+  {\itshape three closed cords, drawn as the sailor sees them}
+\end{center}
+
+\vspace{1.4em}
+
+% Each cord is a closed curve given by a formula, sampled every few degrees.
+% fiziko finds the crossings itself; the string of ones tells it which strand
+% passes over at each crossing in turn, alternating as in a real knot.
+\knotcell{
+  path cord;
+  cord := (for t = 0 step 12 until 348:
+    (sind(t) + 2sind(2t), cosd(t) - 2cosd(2t)) scaled 0.5cm .. endfor cycle);
+  addStrandToKnot (trefoil) (cord, 0.24cm, "l", "1,-1,1,-1,1,-1");
+  draw knotFromStrands (trefoil);
+}{Fig.\ 1. The trefoil, of three crossings.}
+\hfill
+\knotcell{
+  path cord;
+  cord := (for t = 0 step 6 until 354:
+    ((2 + cosd(5t)) * cosd(2t), (2 + cosd(5t)) * sind(2t)) scaled 0.52cm
+    .. endfor cycle);
+  addStrandToKnot (cinquefoil) (cord, 0.22cm, "l", "1,-1,1,-1,1,-1,1,-1,1,-1");
+  draw knotFromStrands (cinquefoil);
+}{Fig.\ 2. The cinquefoil, of five crossings.}
+\hfill
+\knotcell{
+  path cord;
+  cord := (for t = 0 step 6 until 354:
+    ((2 + cosd(7t)) * cosd(2t), (2 + cosd(7t)) * sind(2t)) scaled 0.52cm
+    .. endfor cycle);
+  addStrandToKnot (septafoil) (cord, 0.2cm, "l",
+    "1,-1,1,-1,1,-1,1,-1,1,-1,1,-1,1,-1");
+  draw knotFromStrands (septafoil);
+}{Fig.\ 3. The septafoil, of seven crossings.}
+
+\vspace{1.6em}
+\small
+These are the first three of the family that a cord makes when wound twice
+about a ring and turned an odd number of times in going round. Each figure
+is one formula sampled into a smooth closed path; the library shades the cord
+as a tube, cuts it wherever it passes beneath itself, and lays the strands
+one upon another in the order given, so that the eye reads the over and under
+of the rope at once.
+
+\vspace{.6em}
+\footnotesize
+fiziko's own manual calls its knot routine not especially stable. The three
+cords here are chosen because their crossings are well separated; a knot
+drawn with crossings close together, or with a strand grazing another, may
+need its sampling or its width adjusted before the routine finds every
+crossing.
+
+\end{document}

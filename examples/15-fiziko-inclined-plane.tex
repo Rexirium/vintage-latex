@@ -1,0 +1,155 @@
+%!TEX program = lualatex
+% SPDX-License-Identifier: CC-BY-SA-4.0
+% Requires: https://github.com/jemmybutton/fiziko (GPL-3.0)
+% Set MPINPUTS to the directory containing fiziko.mp before running lualatex.
+\documentclass[11pt]{article}
+
+\usepackage{iftex}
+\ifLuaTeX\else
+  \PackageError{vintage-latex}{This example requires LuaLaTeX}
+    {Run lualatex, not pdflatex or xelatex.}
+\fi
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage[tracking=true,protrusion=false,expansion=false]{microtype}
+\usepackage{luamplib}
+
+\setmainfont{EB Garamond}[Numbers={OldStyle,Proportional}]
+\setmathfont{Garamond-Math.otf}
+\definecolor{ragpaper}{HTML}{F3E9D6}
+\definecolor{printerink}{HTML}{25201B}
+\pagecolor{ragpaper}
+\color{printerink}
+\geometry{a5paper,top=20mm,bottom=22mm,left=20mm,right=20mm}
+\pagestyle{empty}
+\setlength{\parindent}{1.1em}
+\setlength{\emergencystretch}{.7em}
+
+% fiziko is drawn by LuaTeX's built-in MetaPost. Labels written between
+% btex and etex are typeset by this document, so they share its text and math
+% fonts; drawoptions tints every stroke with the page's ink.
+\mplibforcehmode
+\everymplib{
+  input fiziko.mp;
+  randomseed := 424;
+  defineMinStrokeWidth(0.22pt);
+  defineLightDirection(-1/8pi, 1/8pi);
+  color inkcolor, papercolor;
+  inkcolor := (0.145, 0.125, 0.106);
+  papercolor := (0.953, 0.914, 0.839);
+  drawoptions(withcolor inkcolor);
+  % A label on a small patch of paper, so lettering stays legible where it
+  % must cross wood grain or hatching.
+  vardef clearlabel@#(expr t, z) =
+    save p; picture p; p := thelabel@#(t, z);
+    fill bbox p withcolor papercolor;
+    draw p;
+  enddef;
+  beginfig(1);
+}
+\everyendmplib{endfig;}
+
+\begin{document}
+
+\begin{center}
+  {\small\textls[120]{\textsc{Proposition VI}}}\par
+  \vspace{.3em}
+  {\Large Of a Ball upon an Inclined Plane}\par
+  \vspace{.2em}
+  {\itshape wherein the weight is resolved into its two parts}
+\end{center}
+
+\vspace{.9em}
+
+\noindent\textls[70]{\textsc{Let a plane}} be raised at one end until it
+makes with the horizon the angle $\theta$, and let a ball of mass $m$ be laid
+upon it. The weight $mg$ acts always toward the centre of the earth; but the
+plane resists only that part of it which presses directly upon the surface,
+and the remainder urges the ball along the slope.
+
+\begin{center}
+\begin{mplibcode}
+  numeric slopeAngle, planeLength, ballDiameter, ballTravel;
+  pair planeFoot, planeTop, ballCenter, contact;
+  % Do not call this path "floor": that shadows MetaPost's floor function,
+  % which fiziko's wood texture uses.
+  path wedge, ground;
+
+  slopeAngle := 24;
+  planeLength := 7.4cm;
+  ballDiameter := 1.2cm;
+  ballTravel := 0.6;
+
+  planeFoot := (0, 0);
+  planeTop := planeFoot + planeLength * dir(slopeAngle);
+
+  ground := (planeLength + 1.2cm, 0) -- (-1.2cm, 0);
+  draw solidSurface(ground);
+  wedge := planeFoot -- (xpart planeTop, 0) -- planeTop -- cycle;
+  draw woodenThing(wedge, slopeAngle);
+
+  contact := ballTravel[planeFoot, planeTop];
+  ballCenter := contact + 1/2ballDiameter * dir(slopeAngle + 90);
+  draw sphere.c(ballDiameter) shifted ballCenter;
+
+  pair gravity, alongSlope, intoSlope;
+  gravity := (0, -1.9cm);
+  alongSlope := (gravity dotprod dir(slopeAngle)) * dir(slopeAngle);
+  intoSlope := gravity - alongSlope;
+  drawarrow ballCenter -- ballCenter + gravity withpen pencircle scaled 0.45pt;
+  drawarrow ballCenter -- ballCenter + alongSlope
+    withpen pencircle scaled 0.45pt;
+  drawarrow ballCenter -- ballCenter + intoSlope
+    withpen pencircle scaled 0.45pt;
+  draw ballCenter + alongSlope -- ballCenter + gravity
+    dashed evenly scaled 0.6 withpen pencircle scaled 0.28pt;
+  draw ballCenter + intoSlope -- ballCenter + gravity
+    dashed evenly scaled 0.6 withpen pencircle scaled 0.28pt;
+  clearlabel.rt(btex $mg$ etex, ballCenter + gravity shifted (1mm, 0.6mm));
+  clearlabel.ulft(btex $mg\sin\theta$ etex,
+    ballCenter + 1/2alongSlope shifted (-0.6mm, 0.6mm));
+  clearlabel.lrt(btex $mg\cos\theta$ etex,
+    ballCenter + 1/2intoSlope shifted (0.6mm, 0));
+
+  markAngle((xpart planeTop, 0), planeFoot, planeTop)(btex $\theta$ etex);
+
+  draw (xpart planeTop + 0.3cm, 0) -- (xpart planeTop + 0.85cm, 0)
+    withpen pencircle scaled 0.3pt;
+  draw (xpart planeTop + 0.3cm, ypart planeTop)
+    -- (xpart planeTop + 0.85cm, ypart planeTop)
+    withpen pencircle scaled 0.3pt;
+  drawdblarrow (xpart planeTop + 0.65cm, 0)
+    -- (xpart planeTop + 0.65cm, ypart planeTop)
+    withpen pencircle scaled 0.4pt;
+  clearlabel.rt(btex $h$ etex, (xpart planeTop + 0.75cm, 1/2ypart planeTop));
+\end{mplibcode}
+\end{center}
+
+\vspace{.4em}
+\noindent
+The figure shows the ball at the point where its weight is thus divided. The
+part $mg\sin\theta$ lies along the plane and alone produces motion; the part
+$mg\cos\theta$ is wholly sustained by the wood. If the ball rolls without
+slipping, a share of the moving force is spent in turning it, and the
+descent is found to proceed with the acceleration
+\[
+  a = \tfrac{5}{7}\, g \sin\theta ,
+\]
+which is less than that of a body sliding freely upon a plane without
+friction, though independent of the size and the weight of the ball.
+
+\vspace{.4em}
+\noindent\footnotesize
+The wooden wedge, the hatched ground, the line-shaded sphere, and the angle
+mark are fiziko macros drawn by LuaTeX's own MetaPost; the arrows and their
+labels are ordinary MetaPost, and the labels are set in the page's fonts.
+
+\vfill
+\begin{center}
+  {\scriptsize\textls[110]{\textsc{Elements of Mechanics, Book I}}}
+\end{center}
+
+\end{document}

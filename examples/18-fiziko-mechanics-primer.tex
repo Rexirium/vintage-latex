@@ -1,0 +1,190 @@
+%!TEX program = lualatex
+% SPDX-License-Identifier: CC-BY-SA-4.0
+% Requires: https://github.com/jemmybutton/fiziko (GPL-3.0)
+% Set MPINPUTS to the directory containing fiziko.mp before running lualatex.
+\documentclass[10pt]{article}
+
+\usepackage{iftex}
+\ifLuaTeX\else
+  \PackageError{vintage-latex}{This example requires LuaLaTeX}
+    {Run lualatex, not pdflatex or xelatex.}
+\fi
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{multicol}
+\usepackage[tracking=true,protrusion=false,expansion=false]{microtype}
+\usepackage{luamplib}
+
+\setmainfont{EB Garamond}[Numbers={OldStyle,Proportional}]
+\setmathfont{Garamond-Math.otf}
+\definecolor{ragpaper}{HTML}{F3E9D6}
+\definecolor{printerink}{HTML}{25201B}
+\pagecolor{ragpaper}
+\color{printerink}
+\geometry{a4paper,top=22mm,bottom=24mm,left=22mm,right=22mm}
+\pagestyle{empty}
+\setlength{\parindent}{1em}
+\setlength{\columnsep}{8mm}
+\setlength{\columnseprule}{.3pt}
+\setlength{\emergencystretch}{.8em}
+
+\mplibforcehmode
+\everymplib{
+  input fiziko.mp;
+  randomseed := 3141;
+  defineMinStrokeWidth(0.2pt);
+  defineLightDirection(-1/8pi, 1/8pi);
+  color inkcolor; inkcolor := (0.145, 0.125, 0.106);
+  drawoptions(withcolor inkcolor);
+  beginfig(1);
+}
+\everyendmplib{endfig;}
+
+\newcommand{\articlehead}[1]{%
+  \par\medskip
+  \begin{center}\textls[60]{\textsc{#1}}\end{center}
+  \vspace{-.3em}
+}
+\newcommand{\figcaption}[1]{\par\vspace{.3em}\centerline{\small\itshape #1}\par\smallskip}
+
+\begin{document}
+
+\begin{center}
+  {\small\textls[120]{\textsc{Chapter the Third}}}\par
+  \vspace{.3em}
+  {\Large Elements of Mechanics}\par
+  \vspace{.2em}
+  {\itshape illustrated by figures of the simplest engines}\par
+  \vspace{.6em}
+  \rule{.5\linewidth}{.4pt}
+\end{center}
+
+\vspace{.6em}
+
+\begin{multicols}{2}
+
+\articlehead{Of the Cart}
+
+\noindent A load placed upon wheels is moved by a force much less than its
+weight, because the wheels turn instead of rubbing along the ground. The
+force $F$ has then only to overcome the small friction at the axles, together
+with the resistance of the ground to the rolling of the rims.
+
+\begin{center}
+\begin{mplibcode}
+  numeric l, w, r, h;
+  l := 3.4cm; w := 0.26cm; r := 0.6cm; h := 0.9cm;
+  draw solidSurface((-0.6cm, 0) -- (l + 1.5cm, 0));
+  draw woodBlock(l, w) shifted (0, r);
+  draw wheel(r, 0) shifted (r, 1/2r);
+  draw wheel(r, 0) shifted (l - r, 1/2r);
+  draw weight.s(h) shifted (1/2l, r + w);
+  drawarrow (l, r + w + 1/2h) -- (l + 1.2cm, r + w + 1/2h)
+    withpen pencircle scaled 0.45pt;
+  label.top(btex $F$ etex, (l + 0.6cm, r + w + 1/2h + 0.1cm));
+\end{mplibcode}
+\figcaption{Fig.\ 1. A loaded cart drawn along level ground.}
+\end{center}
+
+\articlehead{Of the Lever}
+
+\noindent A bar resting upon a prop, and carrying weights at its two ends,
+is at rest when the weights are to one another inversely as their distances
+from the prop. Thus in Fig.\ 2 the greater weight, being nearer the prop,
+balances the smaller placed farther from it; and the rule is
+\[
+  W_1 \, a = W_2 \, b .
+\]
+
+\begin{center}
+\begin{mplibcode}
+  numeric tilt, barLength, barThick;
+  pair pivot, leftEnd, rightEnd;
+  path prop, bar;
+  tilt := -5;
+  barLength := 5.2cm; barThick := 0.22cm;
+  pivot := (0, 0.95cm);
+  draw solidSurface((-2.6cm, 0) -- (3.2cm, 0));
+  prop := (-0.5cm, 0) -- (0.5cm, 0) -- (0, 0.95cm) -- cycle;
+  draw woodenThing(prop, 90);
+  bar := unitsquare xscaled barLength yscaled barThick
+         shifted (-2/5barLength, 0) rotated tilt shifted pivot;
+  draw woodBlock(barLength, barThick)
+       shifted (-2/5barLength, 0) rotated tilt shifted pivot;
+  leftEnd := (-2/5barLength + 0.35cm, barThick) rotated tilt shifted pivot;
+  rightEnd := (3/5barLength - 0.35cm, barThick) rotated tilt shifted pivot;
+  draw weight.s(0.85cm) shifted leftEnd;
+  draw weight.s(0.55cm) shifted rightEnd;
+  label.top(btex $W_1$ etex, leftEnd shifted (0, 0.9cm));
+  label.top(btex $W_2$ etex, rightEnd shifted (0, 0.6cm));
+  drawdblarrow (xpart leftEnd, -0.45cm) -- (0, -0.45cm)
+    withpen pencircle scaled 0.35pt;
+  drawdblarrow (0, -0.45cm) -- (xpart rightEnd, -0.45cm)
+    withpen pencircle scaled 0.35pt;
+  label.bot(btex $a$ etex, (1/2xpart leftEnd, -0.5cm));
+  label.bot(btex $b$ etex, (1/2xpart rightEnd, -0.5cm));
+  draw (xpart leftEnd, -0.6cm) -- (xpart leftEnd, -0.3cm)
+    withpen pencircle scaled 0.3pt;
+  draw (0, -0.6cm) -- (0, -0.3cm) withpen pencircle scaled 0.3pt;
+  draw (xpart rightEnd, -0.6cm) -- (xpart rightEnd, -0.3cm)
+    withpen pencircle scaled 0.3pt;
+\end{mplibcode}
+\figcaption{Fig.\ 2. Two weights in balance upon a lever.}
+\end{center}
+
+\columnbreak
+
+\articlehead{Of the Pendulum}
+
+\noindent A heavy ball hung by a thread, and drawn aside through the angle
+$\theta$, returns toward the lowest point and passes beyond it, so that the
+motion is repeated. For small excursions the time of one swing depends upon
+the length $l$ alone, and not upon the weight of the ball nor upon the width
+of the arc; whence the pendulum serves to divide the day into equal parts.
+
+\begin{center}
+\begin{mplibcode}
+  numeric l, theta, ballDiam;
+  pair top, bob;
+  l := 3.6cm; theta := 24; ballDiam := 0.8cm;
+  top := (0, 0);
+  bob := top + l * dir(-90 + theta);
+  draw solidSurface((1.5cm, 0) -- (-1.5cm, 0));
+  draw top -- (0, -l - 1/2ballDiam - 0.3cm)
+    dashed evenly scaled 0.6 withpen pencircle scaled 0.28pt;
+  draw top -- bob withpen pencircle scaled 0.4pt;
+  draw sphere.c(ballDiam) shifted bob shifted (1/2ballDiam * dir(-90 + theta));
+  markAngle((0, -l), top, bob)(btex $\theta$ etex);
+  label.rt(btex $l$ etex, 1/2[top, bob] shifted (0.12cm, 0));
+  draw (subpath (5.35, 6.65) of fullcircle scaled (2l + ballDiam + 1.1cm))
+    shifted top dashed withdots scaled 0.6 withpen pencircle scaled 0.35pt;
+\end{mplibcode}
+\figcaption{Fig.\ 3. A pendulum drawn aside from the vertical.}
+\end{center}
+
+\articlehead{Of Weight and Measure}
+
+\noindent The figures are drawn by the same MetaPost library that made the
+plates of the preceding chapters, but here they are produced inside the page
+itself: LuaTeX's built-in MetaPost interpreter renders each one at the place
+where it stands in the column, and the letters upon them are set in the type
+of the text. The wood grain, the hatching of the ground, the shading of the
+ball, and the standing weights are stock parts of the library; the arrows,
+dimension lines, and dotted arc are plain MetaPost added around them.
+
+\smallskip
+\noindent A page of this kind was once the work of an engraver and a
+compositor in turn. Here the two are done together, and a change of a single
+length in the source moves the weights, the arrows, and the letters at once.
+
+\end{multicols}
+
+\vfill
+\begin{center}
+  {\scriptsize\textls[110]{\textsc{To be continued in the next number}}}
+\end{center}
+
+\end{document}

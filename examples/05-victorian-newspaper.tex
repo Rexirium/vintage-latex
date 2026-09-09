@@ -1,0 +1,128 @@
+%!TEX program = lualatex
+% SPDX-License-Identifier: CC-BY-SA-4.0
+\documentclass[10pt]{article}
+
+\usepackage{iftex}
+\ifLuaTeX\else
+  \PackageError{vintage-latex}{This example requires LuaLaTeX}
+    {Run lualatex, not pdflatex or xelatex.}
+\fi
+
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{multicol}
+\usepackage[tracking=true,protrusion=false,expansion=false]{microtype}
+
+\defaultfontfeatures{Renderer=HarfBuzz}
+\setmainfont{EB Garamond}[Numbers={OldStyle,Proportional}]
+\definecolor{newsprint}{HTML}{F1E6CF}
+\definecolor{printerink}{HTML}{211D18}
+\pagecolor{newsprint}
+\color{printerink}
+\geometry{paperwidth=210mm,paperheight=210mm,
+          top=17mm,bottom=17mm,left=17mm,right=17mm}
+\pagestyle{empty}
+\setlength{\columnsep}{6mm}
+\setlength{\columnseprule}{.35pt}
+\setlength{\parindent}{1em}
+\setlength{\parskip}{0pt}
+
+\newcommand{\articlehead}[1]{%
+  \par\medskip
+  \noindent\rule{\linewidth}{.55pt}\par
+  \vspace{.25em}
+  \begin{center}\large\textls[55]{\textsc{#1}}\end{center}
+  \vspace{-.25em}
+}
+
+\begin{document}
+
+\begin{center}
+  {\fontsize{24.88}{26}\selectfont\textls[28]{THE SCIENTIFIC HERALD}}\par
+  \vspace{.25em}
+  \rule{\linewidth}{1.15pt}\par
+  \vspace{.18em}
+  \makebox[\linewidth]{%
+    \footnotesize VOL. XII\hfill SATURDAY, 17 MAY 1879\hfill ONE PENNY}
+  \vspace{.2em}
+  \rule{\linewidth}{.35pt}
+\end{center}
+
+\begin{multicols}{2}
+
+\articlehead{Electric Light in the Lecture Hall}
+
+\noindent\textls[75]{\textsc{Last evening}} a compact arc lamp was exhibited
+before the members of the Mechanics' Institute. Two carbon rods were advanced
+by a clockwork movement, while the current was supplied by a small dynamo in
+the adjoining room. The illumination was strong enough to project a spectrum
+upon a screen at the far end of the hall.
+
+The operator first showed the unequal consumption of the carbons, then reversed
+the current so that the crater appeared upon the opposite rod. A white card,
+held at several distances, made the rapid fall of brightness apparent without
+requiring a photometer.
+
+\begin{center}
+  \vspace{.35em}
+  \rule{.72\linewidth}{.35pt}\par
+  \vspace{.45em}
+  {\large\itshape ``A measurement is most useful when its conditions travel
+  with it.''}\par
+  \vspace{.45em}
+  \rule{.72\linewidth}{.35pt}
+  \vspace{.25em}
+\end{center}
+
+The demonstration was notable less for novelty than for order. Every change of
+distance, polarity, and aperture was announced before the observation was
+made. The record may therefore be repeated instead of merely admired.
+
+\articlehead{Notes and Correspondence}
+
+\noindent\textsc{A correspondent at Bath} reports that a magnetic needle,
+suspended beneath a glass bell, retained its period after the air had been
+partly withdrawn. Temperature was not recorded, and the observation should be
+treated as provisional.
+
+\smallskip
+\noindent\textsc{Books received.}---A new table of logarithms; a practical
+treatise on the construction of lenses; and the second part of a catalogue of
+British mosses.
+
+\columnbreak
+
+\articlehead{The Transit Instrument}
+
+\noindent\textls[75]{\textsc{The observatory}} has received a transit telescope
+with a divided circle of twelve inches diameter. Its axis rests upon stone
+piers separated from the surrounding floor, so that the motion of visitors is
+not readily communicated to the instrument.
+
+Before the first observations, the collimation, level, and azimuth errors were
+determined separately. Repeating the same star upon both faces of the circle
+then exposed an index error that a single reading would have concealed.
+
+\articlehead{Meteorological Register}
+
+\begin{center}
+\small
+\begin{tabular}{@{}lrrr@{}}
+\textsc{Day} & \textsc{Bar.} & \textsc{Temp.} & \textsc{Rain}\\
+\hline
+Monday    & 29.84 & 54.2 & 0.00\\
+Tuesday   & 29.71 & 51.8 & 0.13\\
+Wednesday & 29.92 & 56.1 & 0.02\\
+Thursday  & 30.06 & 58.7 & 0.00\\
+Friday    & 30.11 & 60.3 & 0.00\\
+\end{tabular}
+\end{center}
+
+\noindent\footnotesize Barometer reduced to 32 degrees Fahrenheit; rain in
+inches. The ruled column divider, masthead, compact heads, and tabular register
+are independent newspaper mechanisms rather than a single background texture.
+
+\end{multicols}
+
+\end{document}

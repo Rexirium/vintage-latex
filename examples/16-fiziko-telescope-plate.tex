@@ -1,0 +1,149 @@
+%!TEX program = lualatex
+% SPDX-License-Identifier: CC-BY-SA-4.0
+% Requires: https://github.com/jemmybutton/fiziko (GPL-3.0)
+% Set MPINPUTS to the directory containing fiziko.mp before running lualatex.
+\documentclass[11pt]{article}
+
+\usepackage{iftex}
+\ifLuaTeX\else
+  \PackageError{vintage-latex}{This example requires LuaLaTeX}
+    {Run lualatex, not pdflatex or xelatex.}
+\fi
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage[tracking=true,protrusion=false,expansion=false]{microtype}
+\usepackage{luamplib}
+
+\setmainfont{EB Garamond}[Numbers={OldStyle,Proportional}]
+\setmathfont{Garamond-Math.otf}
+\definecolor{ragpaper}{HTML}{F3E9D6}
+\definecolor{printerink}{HTML}{25201B}
+\pagecolor{ragpaper}
+\color{printerink}
+\geometry{a4paper,landscape,top=18mm,bottom=18mm,left=24mm,right=24mm}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+\mplibforcehmode
+\everymplib{
+  input fiziko.mp;
+  randomseed := 1729;
+  defineMinStrokeWidth(0.22pt);
+  defineLightDirection(-1/8pi, 1/8pi);
+  color inkcolor; inkcolor := (0.145, 0.125, 0.106);
+  drawoptions(withcolor inkcolor);
+  beginfig(1);
+}
+\everyendmplib{endfig;}
+
+\begin{document}
+
+\begin{center}
+  {\small\textls[120]{\textsc{Plate II}}}\par
+  \vspace{.3em}
+  {\Large The Astronomical Telescope of Kepler}\par
+  \vspace{.2em}
+  {\itshape the course of the rays traced through two convex glasses}
+\end{center}
+
+\vspace{1.2em}
+
+\begin{center}
+\begin{mplibcode}
+  numeric nGlass, eyepieceAt;
+  path objective, eyepiece, axis, ray[];
+  pair focus, exitPupil, a_, b_;
+
+  nGlass := 1.52;
+  eyepieceAt := 15.6cm;
+  % Radii of curvature in cm, positive for convex; thickness; diameter.
+  objective := lens((14, 14), 0.5, 3.6, cm);
+  eyepiece := lens((2.2, 2.2), 0.32, 1.4, cm) shifted (eyepieceAt, 0);
+  axis := (-3.4cm, 0) -- (eyepieceAt + 4.6cm, 0);
+
+  draw axis dashed evenly scaled 0.6 withpen pencircle scaled 0.28pt;
+  draw solid(objective, 52, 1);
+  draw objective withpen pencircle scaled 0.6pt;
+  draw solid(eyepiece, 52, 1);
+  draw eyepiece withpen pencircle scaled 0.6pt;
+
+  % The exit ray of refractionPath is short; extend it along its direction.
+  vardef extended(expr p, l) =
+    p -- (point length(p) of p
+          + l * unitvector(point length(p) of p - point (length(p)-1) of p))
+  enddef;
+
+  % Bundle from a star on the axis: parallel rays, brought to the focus F,
+  % then made parallel again by the eyepiece.
+  for h = -1.2cm, -0.6cm, 0.6cm, 1.2cm:
+    ray1 := (-3.2cm, h) -- (-1.6cm, h);
+    ray2 := refractionPath(ray1, objective, nGlass);
+    ray3 := refractionPath(ray2, eyepiece, nGlass);
+    draw extended(ray3, 3.4cm) withpen pencircle scaled 0.32pt;
+  endfor;
+  ray1 := (-3.2cm, 1.2cm) -- (-1.6cm, 1.2cm);
+  ray2 := refractionPath(ray1, objective, nGlass);
+  a_ := point (length(ray2)-1) of ray2;  b_ := point length(ray2) of ray2;
+  focus = whatever[a_, b_];  ypart focus = 0;
+
+  % Bundle from a second star two degrees off the axis, drawn broken.
+  for h = -1.2cm, 0, 1.2cm:
+    ray1 := ((-3.2cm, h) -- (-1.6cm, h)) shifted (0, 3.2cm*sind(2)) rotated -2;
+    ray2 := refractionPath(ray1, objective, nGlass);
+    ray3 := refractionPath(ray2, eyepiece, nGlass);
+    draw extended(ray3, 3.4cm) dashed evenly scaled 0.5
+      withpen pencircle scaled 0.32pt;
+  endfor;
+  % Its chief ray crosses the axis at the exit pupil, where the eye is placed.
+  ray1 := ((-3.2cm, 0) -- (-1.6cm, 0)) shifted (0, 3.2cm*sind(2)) rotated -2;
+  ray2 := refractionPath(ray1, objective, nGlass);
+  ray3 := refractionPath(ray2, eyepiece, nGlass);
+  a_ := point (length(ray3)-1) of ray3;  b_ := point length(ray3) of ray3;
+  exitPupil = whatever[a_, b_];  ypart exitPupil = 0;
+
+  eyescale := 1.1cm;
+  draw eye(180) shifted exitPupil shifted (1.05cm, 0);
+
+  % Lettering, as on the engraved plates: capitals near the parts.
+  label.top(btex $A$ etex, (0.25cm, 1.95cm));
+  label.top(btex $B$ etex, (eyepieceAt + 0.16cm, 0.85cm));
+  dotlabel.bot(btex $F$ etex, focus);
+  dotlabel.bot(btex $O$ etex, exitPupil);
+  label.bot(btex \small\itshape rays from a star upon the axis etex,
+    (-1.9cm, -1.55cm));
+  label.bot(btex \small\itshape rays from a star two degrees from it etex,
+    (-1.9cm, -2.05cm));
+  draw (-3.2cm, -1.55cm) -- (-4.3cm, -1.55cm) withpen pencircle scaled 0.32pt;
+  draw (-3.2cm, -2.05cm) -- (-4.3cm, -2.05cm) dashed evenly scaled 0.5
+    withpen pencircle scaled 0.32pt;
+\end{mplibcode}
+\end{center}
+
+\vspace{1.2em}
+\begin{minipage}{.48\linewidth}
+\small
+The object-glass $A$ receives the rays of a star nearly parallel, and unites
+them at its focus $F$. Rays from a second star, inclined to the first, are
+brought to a focus a little above or below $F$, so that in the focal plane
+there lies a small inverted image of the field.
+\end{minipage}\hfill
+\begin{minipage}{.48\linewidth}
+\small
+The eye-glass $B$ is set at its own focal distance beyond that plane. It
+returns each pencil to parallelism, but the pencils now diverge from one
+another more steeply than the stars themselves; the whole of them pass
+through the small opening at $O$, where the pupil of the observer is placed.
+\end{minipage}
+
+\vspace{1em}
+\footnotesize
+No ray in this plate is drawn to a predetermined point. Each is refracted at
+every glass surface by fiziko's tracing macro, the focus and the exit pupil
+are found where computed rays cross the axis, and the lettering shares the
+fonts of the page. Changing a radius of curvature moves every ray, the letter
+$F$, and the eye together.
+
+\end{document}

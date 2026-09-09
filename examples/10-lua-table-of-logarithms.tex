@@ -1,0 +1,102 @@
+%!TEX program = lualatex
+% SPDX-License-Identifier: CC-BY-SA-4.0
+\documentclass[10pt]{article}
+
+\usepackage{iftex}
+\ifLuaTeX\else
+  \PackageError{vintage-latex}{This example requires LuaLaTeX}
+    {Run lualatex, not pdflatex or xelatex.}
+\fi
+
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{array}
+\usepackage{luacode}
+\usepackage[tracking=true,protrusion=false,expansion=false]{microtype}
+
+\defaultfontfeatures{Renderer=HarfBuzz}
+\setmainfont{EB Garamond}[Numbers={OldStyle,Proportional}]
+% Tables of figures were set in lining, tabular numerals so that columns
+% align. The running text keeps old-style figures; only the table switches.
+\newfontfamily\tablefont{EB Garamond}[Numbers={Lining,Tabular}]
+
+\definecolor{tablepaper}{HTML}{F2E7D3}
+\definecolor{printerink}{HTML}{25201B}
+\pagecolor{tablepaper}
+\color{printerink}
+\geometry{a5paper,top=14mm,bottom=14mm,left=16mm,right=16mm}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+% Every digit in the table body is computed here at compile time. Change the
+% first and last row numbers and the whole page is regenerated.
+\begin{luacode*}
+function logtable(first, last)
+  local rows = {}
+  for n = first, last do
+    local cells = {}
+    for d = 0, 9 do
+      local value = n * 10 + d
+      local mantissa = math.log(value, 10) % 1
+      cells[#cells + 1] = string.format("%05d",
+        math.floor(mantissa * 100000 + 0.5))
+    end
+    -- Tabular difference between the first two entries, in units of the
+    -- fifth place. Period tables printed this in a narrow final column.
+    local diff = tonumber(cells[2]) - tonumber(cells[1])
+    if diff < 0 then diff = diff + 100000 end
+    local row = string.format("%d & %s & %d", n,
+      table.concat(cells, " & "), diff)
+    rows[#rows + 1] = row .. "\\\\"
+    if (n - first + 1) % 5 == 0 and n < last then
+      rows[#rows + 1] = "\\noalign{\\vskip 2.2pt}"
+    end
+  end
+  tex.print(rows)
+end
+\end{luacode*}
+
+\begin{document}
+
+\begin{center}
+  {\small\textls[120]{\textsc{Table II}}}\par
+  \vspace{.3em}
+  {\Large Logarithms of Numbers}\par
+  \vspace{.2em}
+  {\itshape from 1000 to 1399, to five places of decimals}\par
+  \vspace{.5em}
+  \rule{\linewidth}{.9pt}\par
+  \vspace{.14em}
+  \rule{\linewidth}{.3pt}
+\end{center}
+
+\vspace{.2em}
+
+{\centering
+\tablefont\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabular}{@{}r|cccccccccc|r@{}}
+\multicolumn{1}{@{}c|}{N.} &
+  0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 &
+  \multicolumn{1}{|c@{}}{D.}\\
+\hline
+\noalign{\vskip 2.2pt}
+\directlua{logtable(100, 139)}
+\noalign{\vskip 1.5pt}
+\hline
+\end{tabular}\par}
+
+\vspace{.9em}
+\footnotesize
+The mantissa is printed without its characteristic, which is 3 for every
+entry on this page. The column headed D.\ gives the difference between the
+first two entries of the row, and decreases down the table as the logarithm
+varies more slowly. No figure in the body was typed: a short Lua function
+computes each mantissa when the page is compiled, and the table is extended
+by changing two numbers in the source. Lining figures were chosen because
+old-style figures descend below the baseline and disturb the alignment a
+table depends on.
+
+\end{document}

@@ -1,0 +1,111 @@
+%!TEX program = lualatex
+% SPDX-License-Identifier: CC-BY-SA-4.0
+% Requires: https://github.com/jemmybutton/fiziko (GPL-3.0)
+% Set MPINPUTS to the directory containing fiziko.mp before running lualatex.
+\documentclass[11pt]{article}
+
+\usepackage{iftex}
+\ifLuaTeX\else
+  \PackageError{vintage-latex}{This example requires LuaLaTeX}
+    {Run lualatex, not pdflatex or xelatex.}
+\fi
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage[tracking=true,protrusion=false,expansion=false]{microtype}
+\usepackage{luamplib}
+
+\setmainfont{EB Garamond}[Numbers={OldStyle,Proportional}]
+\setmathfont{Garamond-Math.otf}
+\definecolor{ragpaper}{HTML}{F3E9D6}
+\definecolor{printerink}{HTML}{25201B}
+\pagecolor{ragpaper}
+\color{printerink}
+\geometry{a4paper,top=22mm,bottom=22mm,left=24mm,right=24mm}
+\pagestyle{empty}
+\setlength{\parindent}{1.1em}
+
+\mplibforcehmode
+\everymplib{
+  input fiziko.mp;
+  randomseed := 2718;
+  defineMinStrokeWidth(0.2pt);
+  defineLightDirection(-1/6pi, 1/9pi);
+  color inkcolor; inkcolor := (0.145, 0.125, 0.106);
+  drawoptions(withcolor inkcolor);
+  beginfig(1);
+}
+\everyendmplib{endfig;}
+
+% One globe at a chosen station. fiziko carries its own coastline table and
+% shades the sphere from the light direction declared above.
+\newcommand{\station}[3]{% longitude, latitude, caption
+  \begin{minipage}[t]{.31\linewidth}
+    \centering
+    \begin{mplibcode}
+      draw globe(2.25cm, #1, #2);
+      draw fullcircle scaled 4.5cm withpen pencircle scaled 0.55pt;
+    \end{mplibcode}\par
+    \vspace{.5em}
+    {\small\itshape #3}
+  \end{minipage}%
+}
+
+\begin{document}
+
+\begin{center}
+  {\small\textls[120]{\textsc{Plate I}}}\par
+  \vspace{.3em}
+  {\Large The Terrestrial Globe}\par
+  \vspace{.2em}
+  {\itshape shown from three stations, with the sun upon the left hand}
+\end{center}
+
+\vspace{1.5em}
+
+\noindent
+\station{40}{20}{Fig.\ 1. The Atlantic, between the Old World and the New.}
+\hfill
+\station{-100}{25}{Fig.\ 2. The Eastern hemisphere, from Africa to the Indies.}
+\hfill
+\station{0}{90}{Fig.\ 3. The northern regions, seen from above the pole.}
+
+\vspace{1.6em}
+
+\noindent\textls[70]{\textsc{The same body}} is here turned three times before
+the observer. In each figure the illuminated part faces the left, whence the
+light is supposed to come, and the shading grows heavier toward the limb on
+the right, where the surface turns away both from the light and from the eye.
+The outlines of the land are drawn upon the sphere and foreshortened with it,
+so that a coast near the edge appears crowded together, while the same coast
+brought to the centre is seen at its full extent.
+
+\smallskip
+The third figure is taken from a station above the pole. The meridians, which
+in the other figures converge toward the top, here radiate from the centre
+like the spokes of a wheel, and the lands of Europe, Asia, and America are
+disposed around the frozen sea in a ring.
+
+\vspace{1.2em}
+\begin{center}
+\begin{mplibcode}
+  % A row of small globes turned by equal steps, as on the border of an
+  % old map, showing how the same station passes across the disc.
+  for i = 0 upto 5:
+    draw globe(0.72cm, -30 + 60i, 20) shifted (2.05cm*i, 0);
+  endfor;
+  label.bot(btex \footnotesize\itshape The globe turned through sixty degrees
+    between neighbours etex, (5.1cm, -1.1cm));
+\end{mplibcode}
+\end{center}
+
+\vfill
+\footnotesize\noindent
+Every sphere on this page is one call of a fiziko macro drawn by LuaTeX's
+built-in MetaPost. The captions, the lettering under the row, and the running
+text are set together by LaTeX, so the plate and its explanation share one
+font, one ink, and one paper.
+
+\end{document}

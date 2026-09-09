@@ -1,0 +1,115 @@
+%!TEX program = lualatex
+% SPDX-License-Identifier: CC-BY-SA-4.0
+\documentclass[11pt,twoside]{article}
+
+\usepackage{iftex}
+\ifLuaTeX\else
+  \PackageError{vintage-latex}{This example requires LuaLaTeX}
+    {Run lualatex, not pdflatex or xelatex.}
+\fi
+
+\usepackage{fontspec}
+\usepackage{xcolor}
+\usepackage{geometry}
+% Only tracking is needed here. MiKTeX's current EB Garamond protrusion table
+% references legacy glyph names that the OpenType font does not expose.
+\usepackage[tracking=true,protrusion=false,expansion=false]{microtype}
+
+\defaultfontfeatures{Renderer=HarfBuzz}
+\setmainfont{EB Garamond}[
+  Numbers={OldStyle,Proportional},
+  Ligatures={TeX,Common,Historic,Rare}
+]
+
+\definecolor{ragpaper}{HTML}{F4EBDD}
+\definecolor{printerink}{HTML}{231F1A}
+\pagecolor{ragpaper}
+\color{printerink}
+
+\geometry{
+  a4paper,
+  top=29mm,
+  bottom=34mm,
+  inner=27mm,
+  outer=38mm,
+  marginparwidth=25mm,
+  marginparsep=6mm
+}
+
+\setlength{\parindent}{1.2em}
+\setlength{\parskip}{0pt}
+\linespread{1.04}
+\pagestyle{plain}
+
+% A dependency-free three-line drop capital. The following word is supplied
+% separately so it can be set in small capitals.
+\newcommand{\dropcap}[2]{%
+  \noindent
+  \parshape 4
+    3.55em \dimexpr\linewidth-3.55em\relax
+    3.55em \dimexpr\linewidth-3.55em\relax
+    3.55em \dimexpr\linewidth-3.55em\relax
+    0pt \linewidth
+  \makebox[0pt][r]{%
+    \raisebox{-1.48\baselineskip}[0pt][0pt]{%
+      \fontsize{47}{47}\selectfont #1}%
+    \hspace{0.16em}}%
+  \textsc{#2}%
+}
+
+\newcommand{\printerrule}{%
+  \par\vspace{0.55em}
+  \begin{center}
+    \rule{0.19\linewidth}{0.35pt}\hspace{0.45em}%
+    \rule{0.075\linewidth}{1.05pt}\hspace{0.45em}%
+    \rule{0.19\linewidth}{0.35pt}
+  \end{center}
+  \vspace{0.15em}
+}
+
+\begin{document}
+
+\begin{center}
+  {\Large\textls[80]{\textsc{Philosophical Inquiries}}}\par
+  \vspace{0.55em}
+  {\small CONCERNING THE}\par
+  \vspace{0.2em}
+  {\large\textls[65]{\textsc{Refraction of Luminous Rays}}}\par
+  \printerrule
+  {\small Read before the Society on the 14th day of November, 1684}
+\end{center}
+
+\vspace{1.35em}
+
+\dropcap{A}{n experiment} was made in a darkened chamber, where a narrow
+beam entered through a slit and fell upon a triangular glass. The image upon
+the farther paper was obſerved to be neither circular nor still, but stretched
+according to the inclination of the glass. The figures 3, 4, 5, 7, and 9 in
+this sentence demonstrate old-style numerals.
+
+\marginpar{\footnotesize\raggedright The long \emph{s} in
+  \emph{obſerved} is explicit Unicode; the font's Historic feature supplies
+  several others.}
+
+From repeated trials it appeared that the several rays did not bend in equal
+measure. The circumstance was therefore recorded apart from the conjecture:
+first the position of the apparatus, then the distance to the receiving sheet,
+and only afterward the proposed account of the effect.
+
+\printerrule
+
+\begin{center}
+  {\small\textls[110]{\textsc{Observation I}}}
+\end{center}
+
+The old-style figures, restrained ink color, narrow measure, broad outer
+margin, spaced small capitals, marginal note, and printer's rules are separate
+controls. Remove any one of them to judge its contribution rather than treating
+``vintage'' as a single indivisible style.
+
+\vfill
+\begin{center}
+  {\footnotesize\textit{Finis.}}
+\end{center}
+
+\end{document}

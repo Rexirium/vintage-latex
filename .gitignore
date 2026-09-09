@@ -1,0 +1,21 @@
+.source/
+build/
+
+# LaTeX intermediates (also ignored if a user compiles beside a source file)
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+
+# MetaPost intermediates and local preview products
+examples/*.mpx
+examples/*.t1
+examples/*-*.eps
+examples/*.build.log
+examples/*.pdf
+examples/*.pdf.log
+examples/*.png
+examples/*.png.log
