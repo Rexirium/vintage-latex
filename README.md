@@ -198,6 +198,7 @@ $names = @(
   '09-fiziko-shading-atlas'
 )
 foreach ($name in $names) {
+  # -job-name is required by MiKTeX's mpost; omit it on TeX Live (see below).
   mpost -interaction=nonstopmode -halt-on-error `
     -job-name=$name -output-directory=build "examples/$name.mp"
 }
@@ -214,11 +215,17 @@ for name in \
   09-fiziko-shading-atlas
 do
   mpost -interaction=nonstopmode -halt-on-error \
-    -job-name="$name" -output-directory=build "examples/$name.mp"
+    -output-directory=build "examples/$name.mp"
 done
 ```
 
-Each result is named `build/<example-name>-1.eps`. Convert those EPS files to
+Each result is named `build/<example-name>-1.eps`. The two distributions
+disagree about the job-name flag: MiKTeX's `mpost` (3.00, checked September
+2026) crashes with an access violation at the first `btex` label unless
+`-job-name=<name>` is given, while TeX Live's `mpost` rejects that spelling
+and needs no flag at all because the job name defaults to the file's basename.
+`build.ps1` detects MiKTeX and adds the flag; `build.sh` never does. Convert
+the EPS files to
 PDF or PNG with Ghostscript; do not request PDF directly from MetaPost without
 checking the file signature. Every source uses `prologues := 3` so labels are
 embedded and the output carries an EPSF header.
