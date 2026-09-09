@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     container: texlive/texlive:latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Fetch fiziko (GPL-3.0, not vendored)
         run: git clone --depth 1 https://github.com/jemmybutton/fiziko.git ../fiziko
       - name: Compile every example
@@ -24,9 +24,15 @@ jobs:
             gs -q -dBATCH -dNOPAUSE -dEPSCrop -sDEVICE=pdfwrite \
               -sOutputFile="${eps%-1.eps}.pdf" "$eps"
           done
-      - name: Show logs of failed runs
+      - name: Show output of failed runs
         if: failure()
-        run: for f in build/*.log; do echo "== $f"; grep -A5 '^!' "$f" || true; done
+        run: |
+          for f in build/*.stdout.txt; do
+            name=$(basename "$f" .stdout.txt)
+            if [ ! -f "build/$name.pdf" ] && [ ! -f "build/$name-1.eps" ]; then
+              echo "== $f"; tail -n 40 "$f"
+            fi
+          done
       - uses: actions/upload-artifact@v4
         with:
           name: pdfs
