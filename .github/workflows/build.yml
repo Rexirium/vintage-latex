@@ -30,9 +30,11 @@ jobs:
           for f in build/*.stdout.txt; do
             name=$(basename "$f" .stdout.txt)
             if [ ! -f "build/$name.pdf" ] && [ ! -f "build/$name-1.eps" ]; then
-              echo "== $f"; tail -n 40 "$f"
+              echo "== $f"; cat "$f"
+              [ -f "build/$name.log" ] && { echo "-- $name.log"; tail -n 60 "build/$name.log"; }
             fi
           done
+          ls -la build
       - uses: actions/upload-artifact@v4
         with:
           name: pdfs

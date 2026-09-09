@@ -214,8 +214,10 @@ for name in \
   08-fiziko-atwood-machine \
   09-fiziko-shading-atlas
 do
-  mpost -interaction=nonstopmode -halt-on-error \
-    -output-directory=build "examples/$name.mp"
+  # Run from inside build/: TeX Live's mpost cannot read the mpx file its
+  # btex step writes when -output-directory is used.
+  (cd build && mpost -interaction=nonstopmode -halt-on-error \
+    "../examples/$name.mp")
 done
 ```
 

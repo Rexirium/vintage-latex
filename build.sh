@@ -19,7 +19,9 @@ for file in examples/*.tex examples/*.mp; do
   esac
   case "$file" in
     *.tex) lualatex -interaction=nonstopmode -halt-on-error -output-directory=build "$file" > "build/$name.stdout.txt" 2>&1 ;;
-    *.mp)  mpost -interaction=nonstopmode -halt-on-error -output-directory=build "$file" > "build/$name.stdout.txt" 2>&1 ;;
+    # TeX Live's mpost cannot read the mpx file its btex step writes when
+    # -output-directory is used, so run it from inside build/ instead.
+    *.mp)  (cd build && mpost -interaction=nonstopmode -halt-on-error "../$file") > "build/$name.stdout.txt" 2>&1 ;;
   esac
   if [ $? -eq 0 ]; then echo "OK   $name"; else echo "FAIL $name"; failed="$failed $name"; fi
 done
