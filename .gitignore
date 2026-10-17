@@ -1,5 +1,6 @@
 .source/
 build/
+luamplib_cache/
 
 # LaTeX intermediates (also ignored if a user compiles beside a source file)
 *.aux
