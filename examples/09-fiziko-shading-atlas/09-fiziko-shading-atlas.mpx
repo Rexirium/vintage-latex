@@ -1,0 +1,36 @@
+% Written by metapost version 2.11
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n0="cmr10";
+_s("line-shaded",_n0,1.00000,0.0000,0.0000,);
+_s("sphere",_n0,1.00000,52.0826,0.0000,);
+setbounds _p to (0,-1.9372)--(79.8396,-1.9372)--
+ (79.8396,6.9185)--(0,6.9185)--cycle;
+_p endgroup
+mpxbreak
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n0="cmr10";
+_s("stippled",_n0,1.00000,0.0000,0.0000,);
+_s("sphere",_n0,1.00000,37.6921,0.0000,);
+setbounds _p to (0,-1.9372)--(65.4491,-1.9372)--
+ (65.4491,6.9185)--(0,6.9185)--cycle;
+_p endgroup
+mpxbreak
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n0="cmr10";
+_s("v",_n0,1.00000,0.0000,0.0000,);
+_s("ariable",_n0,1.00000,4.7046,0.0000,);
+_s("tub",_n0,1.00000,37.3877,0.0000,);
+_s("e",_n0,1.00000,52.6084,0.0000,);
+setbounds _p to (0,0.0000)--(57.0363,0.0000)--
+ (57.0363,6.9185)--(0,6.9185)--cycle;
+_p endgroup
+mpxbreak

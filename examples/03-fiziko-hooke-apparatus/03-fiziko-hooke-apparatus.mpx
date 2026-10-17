@@ -1,0 +1,47 @@
+% Written by metapost version 2.11
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n0="cmmi10";
+_s("x",_n0,1.00000,0.0000,0.0000,);
+setbounds _p to (0,0.0000)--(5.6939,0.0000)--
+ (5.6939,4.2895)--(0,4.2895)--cycle;
+_p endgroup
+mpxbreak
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n0="cmmi10";
+_s("k",_n0,1.00000,0.0000,0.0000,);
+setbounds _p to (0,0.0000)--(5.5002,0.0000)--
+ (5.5002,6.9185)--(0,6.9185)--cycle;
+_p endgroup
+mpxbreak
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n0="cmmi10";
+_s("W",_n0,1.00000,0.0000,0.0000,);
+setbounds _p to (0,0.0000)--(10.7929,0.0000)--
+ (10.7929,6.8078)--(0,6.8078)--cycle;
+_p endgroup
+mpxbreak
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n1="cmti10";
+_s("Elastic",_n1,1.10000,0.0000,0.0000,);
+_s("extension",_n1,1.10000,36.2798,0.0000,);
+_s("of",_n1,1.10000,84.7727,0.0000,);
+_s("a",_n1,1.10000,97.6554,0.0000,);
+_s("hanging",_n1,1.10000,107.1774,0.0000,);
+_s("lo",_n1,1.10000,148.0660,0.0000,);
+_s("ad",_n1,1.10000,155.9077,0.0000,);
+setbounds _p to (0,-2.1309)--(167.1101,-2.1309)--
+ (167.1101,7.6103)--(0,7.6103)--cycle;
+_p endgroup
+mpxbreak

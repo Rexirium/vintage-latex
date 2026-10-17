@@ -1,0 +1,25 @@
+% Written by metapost version 2.11
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n0="cmr10";
+_s("optical",_n0,1.00000,0.0000,0.0000,);
+_s("axis",_n0,1.00000,32.6554,0.0000,);
+setbounds _p to (0,-1.9372)--(49.5919,-1.9372)--
+ (49.5919,6.9185)--(0,6.9185)--cycle;
+_p endgroup
+mpxbreak
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n0="cmr10";
+_s("computed",_n0,1.00000,0.0000,0.0000,);
+_s("ra",_n0,1.00000,45.9389,0.0000,);
+_s("y",_n0,1.00000,54.5456,0.0000,);
+_s("paths",_n0,1.00000,63.1245,0.0000,);
+setbounds _p to (0,-1.9372)--(86.9796,-1.9372)--
+ (86.9796,6.9185)--(0,6.9185)--cycle;
+_p endgroup
+mpxbreak

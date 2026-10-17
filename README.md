@@ -1,7 +1,8 @@
 # Vintage scientific papers with LaTeX
 
 Twenty small examples show independent mechanisms behind a convincing
-old-scientific-paper aesthetic. Each file is deliberately standalone: copy one,
+old-scientific-paper aesthetic. Each example lives in its own `examples/<example-name>/` directory.
+Each source file is deliberately standalone: copy one,
 compile it, and remove individual effects to see what they contribute.
 
 The examples fall into three groups: pure LaTeX pages (1, 2, 4, 5, 6, 10 to
@@ -16,85 +17,85 @@ vector and searchable.
 
 | | | | |
 |:-:|:-:|:-:|:-:|
-| [![01](preview/01-early-modern-page.png)](examples/01-early-modern-page.tex) | [![02](preview/02-engraved-optics-plate.png)](examples/02-engraved-optics-plate.tex) | [![03](preview/03-fiziko-hooke-apparatus.png)](examples/03-fiziko-hooke-apparatus.mp) | [![04](preview/04-ornamented-incipit.png)](examples/04-ornamented-incipit.tex) |
+| [![01](preview/01-early-modern-page.png)](examples/01-early-modern-page/01-early-modern-page.tex) | [![02](preview/02-engraved-optics-plate.png)](examples/02-engraved-optics-plate/02-engraved-optics-plate.tex) | [![03](preview/03-fiziko-hooke-apparatus.png)](examples/03-fiziko-hooke-apparatus/03-fiziko-hooke-apparatus.mp) | [![04](preview/04-ornamented-incipit.png)](examples/04-ornamented-incipit/04-ornamented-incipit.tex) |
 | 01 early modern page | 02 engraved optics plate | 03 Hooke apparatus | 04 ornamented incipit |
-| [![05](preview/05-victorian-newspaper.png)](examples/05-victorian-newspaper.tex) | [![06](preview/06-natural-history-catalogue.png)](examples/06-natural-history-catalogue.tex) | [![07](preview/07-fiziko-lens-rays.png)](examples/07-fiziko-lens-rays.mp) | [![08](preview/08-fiziko-atwood-machine.png)](examples/08-fiziko-atwood-machine.mp) |
+| [![05](preview/05-victorian-newspaper.png)](examples/05-victorian-newspaper/05-victorian-newspaper.tex) | [![06](preview/06-natural-history-catalogue.png)](examples/06-natural-history-catalogue/06-natural-history-catalogue.tex) | [![07](preview/07-fiziko-lens-rays.png)](examples/07-fiziko-lens-rays/07-fiziko-lens-rays.mp) | [![08](preview/08-fiziko-atwood-machine.png)](examples/08-fiziko-atwood-machine/08-fiziko-atwood-machine.mp) |
 | 05 Victorian newspaper | 06 natural history catalogue | 07 lens rays | 08 Atwood machine |
-| [![09](preview/09-fiziko-shading-atlas.png)](examples/09-fiziko-shading-atlas.mp) | [![10](preview/10-lua-table-of-logarithms.png)](examples/10-lua-table-of-logarithms.tex) | [![11](preview/11-circumpolar-star-chart.png)](examples/11-circumpolar-star-chart.tex) | [![12](preview/12-snow-crystal-micrographs.png)](examples/12-snow-crystal-micrographs.tex) |
+| [![09](preview/09-fiziko-shading-atlas.png)](examples/09-fiziko-shading-atlas/09-fiziko-shading-atlas.mp) | [![10](preview/10-lua-table-of-logarithms.png)](examples/10-lua-table-of-logarithms/10-lua-table-of-logarithms.tex) | [![11](preview/11-circumpolar-star-chart.png)](examples/11-circumpolar-star-chart/11-circumpolar-star-chart.tex) | [![12](preview/12-snow-crystal-micrographs.png)](examples/12-snow-crystal-micrographs/12-snow-crystal-micrographs.tex) |
 | 09 shading atlas | 10 table of logarithms | 11 circumpolar star chart | 12 snow-crystal micrographs |
-| [![13](preview/13-cooling-curve-graph-paper.png)](examples/13-cooling-curve-graph-paper.tex) | [![14](preview/14-patent-drawing-sheet.png)](examples/14-patent-drawing-sheet.tex) | [![15](preview/15-fiziko-inclined-plane.png)](examples/15-fiziko-inclined-plane.tex) | [![16](preview/16-fiziko-telescope-plate.png)](examples/16-fiziko-telescope-plate.tex) |
+| [![13](preview/13-cooling-curve-graph-paper.png)](examples/13-cooling-curve-graph-paper/13-cooling-curve-graph-paper.tex) | [![14](preview/14-patent-drawing-sheet.png)](examples/14-patent-drawing-sheet/14-patent-drawing-sheet.tex) | [![15](preview/15-fiziko-inclined-plane.png)](examples/15-fiziko-inclined-plane/15-fiziko-inclined-plane.tex) | [![16](preview/16-fiziko-telescope-plate.png)](examples/16-fiziko-telescope-plate/16-fiziko-telescope-plate.tex) |
 | 13 cooling curve | 14 patent drawing sheet | 15 inclined plane | 16 telescope plate |
-| [![17](preview/17-fiziko-terrestrial-globe.png)](examples/17-fiziko-terrestrial-globe.tex) | [![18](preview/18-fiziko-mechanics-primer.png)](examples/18-fiziko-mechanics-primer.tex) | [![19](preview/19-fiziko-knots-plate.png)](examples/19-fiziko-knots-plate.tex) | [![20](preview/20-fiziko-phases-of-the-moon.png)](examples/20-fiziko-phases-of-the-moon.tex) |
+| [![17](preview/17-fiziko-terrestrial-globe.png)](examples/17-fiziko-terrestrial-globe/17-fiziko-terrestrial-globe.tex) | [![18](preview/18-fiziko-mechanics-primer.png)](examples/18-fiziko-mechanics-primer/18-fiziko-mechanics-primer.tex) | [![19](preview/19-fiziko-knots-plate.png)](examples/19-fiziko-knots-plate/19-fiziko-knots-plate.tex) | [![20](preview/20-fiziko-phases-of-the-moon.png)](examples/20-fiziko-phases-of-the-moon/20-fiziko-phases-of-the-moon.tex) |
 | 17 terrestrial globe | 18 mechanics primer | 19 knots plate | 20 phases of the moon |
 
 ## The examples
 
-1. [`01-early-modern-page.tex`](examples/01-early-modern-page.tex) -- OpenType
+1. [`01-early-modern-page.tex`](examples/01-early-modern-page/01-early-modern-page.tex) -- OpenType
    old-style figures and historical ligatures, an explicit long *s*, warm paper
    and ink colors, asymmetric margins, a drop capital, spaced small capitals,
    marginalia, and printer's rules.
-2. [`02-engraved-optics-plate.tex`](examples/02-engraved-optics-plate.tex) --
+2. [`02-engraved-optics-plate.tex`](examples/02-engraved-optics-plate/02-engraved-optics-plate.tex) --
    deterministic irregular strokes and line hatching in TikZ, with labels kept
    as real searchable text.
-3. [`03-fiziko-hooke-apparatus.mp`](examples/03-fiziko-hooke-apparatus.mp) --
+3. [`03-fiziko-hooke-apparatus.mp`](examples/03-fiziko-hooke-apparatus/03-fiziko-hooke-apparatus.mp) --
    a compact Hooke apparatus drawn with the external
    [fiziko](https://github.com/jemmybutton/fiziko) MetaPost library: hatched
    support, modeled spring, hanging weight, and measured extension.
-4. [`04-ornamented-incipit.tex`](examples/04-ornamented-incipit.tex) -- an A5
+4. [`04-ornamented-incipit.tex`](examples/04-ornamented-incipit/04-ornamented-incipit.tex) -- an A5
    early-scientific title page with a boxed three-line initial and a small
    vector ornament made from ordinary TikZ paths.
-5. [`05-victorian-newspaper.tex`](examples/05-victorian-newspaper.tex) -- a
+5. [`05-victorian-newspaper.tex`](examples/05-victorian-newspaper/05-victorian-newspaper.tex) -- a
    compact square broadsheet with a masthead, balanced columns, rule between
    columns, pull quotation, article heads, and meteorological register.
-6. [`06-natural-history-catalogue.tex`](examples/06-natural-history-catalogue.tex)
+6. [`06-natural-history-catalogue.tex`](examples/06-natural-history-catalogue/06-natural-history-catalogue.tex)
    -- a museum catalogue page using hanging entries, dot leaders, explicit
    typographic roles, and old-style numeric data.
-7. [`07-fiziko-lens-rays.mp`](examples/07-fiziko-lens-rays.mp) -- a glass lens
+7. [`07-fiziko-lens-rays.mp`](examples/07-fiziko-lens-rays/07-fiziko-lens-rays.mp) -- a glass lens
    whose ray paths are computed by fiziko's refraction macro rather than drawn
    to a predetermined focal point.
-8. [`08-fiziko-atwood-machine.mp`](examples/08-fiziko-atwood-machine.mp) -- an
+8. [`08-fiziko-atwood-machine.mp`](examples/08-fiziko-atwood-machine/08-fiziko-atwood-machine.mp) -- an
    Atwood machine composed from a hatched support, shaded pulley, curved rope,
    hanging weights, and acceleration arrow.
-9. [`09-fiziko-shading-atlas.mp`](examples/09-fiziko-shading-atlas.mp) -- a
+9. [`09-fiziko-shading-atlas.mp`](examples/09-fiziko-shading-atlas/09-fiziko-shading-atlas.mp) -- a
    side-by-side comparison of line shading, stippling, and a variable-width
    shaded tube.
-10. [`10-lua-table-of-logarithms.tex`](examples/10-lua-table-of-logarithms.tex)
+10. [`10-lua-table-of-logarithms.tex`](examples/10-lua-table-of-logarithms/10-lua-table-of-logarithms.tex)
     -- a five-place table of logarithms whose every digit is computed by a
     Lua function at compile time, set in lining tabular figures with the
     ruling of a nineteenth-century table.
-11. [`11-circumpolar-star-chart.tex`](examples/11-circumpolar-star-chart.tex)
+11. [`11-circumpolar-star-chart.tex`](examples/11-circumpolar-star-chart/11-circumpolar-star-chart.tex)
     -- a polar star chart: one macro converts right ascension and declination
     to chart coordinates for thirty-four catalogued stars, hour circles
     lettered in roman numerals, and magnitude-graded discs.
-12. [`12-snow-crystal-micrographs.tex`](examples/12-snow-crystal-micrographs.tex)
+12. [`12-snow-crystal-micrographs.tex`](examples/12-snow-crystal-micrographs/12-snow-crystal-micrographs.tex)
     -- four circular microscope fields; the crystals are grown by TikZ
     Lindenmayer-system grammars, with six rotated copies of one arm supplying
     the hexagonal symmetry.
-13. [`13-cooling-curve-graph-paper.tex`](examples/13-cooling-curve-graph-paper.tex)
+13. [`13-cooling-curve-graph-paper.tex`](examples/13-cooling-curve-graph-paper/13-cooling-curve-graph-paper.tex)
     -- a pgfplots chart on sepia graph paper with inward ticks, open-circle
     plotting symbols, a hand-fitted curve, and an italic marginal remark.
-14. [`14-patent-drawing-sheet.tex`](examples/14-patent-drawing-sheet.tex) --
+14. [`14-patent-drawing-sheet.tex`](examples/14-patent-drawing-sheet/14-patent-drawing-sheet.tex) --
     a patent-office plate of a centrifugal governor: numbered leader lines,
     sections hatched at forty-five degrees, engraved balls, and witness and
     inventor signature lines.
-15. [`15-fiziko-inclined-plane.tex`](examples/15-fiziko-inclined-plane.tex)
+15. [`15-fiziko-inclined-plane.tex`](examples/15-fiziko-inclined-plane/15-fiziko-inclined-plane.tex)
     -- a treatise page whose figure is drawn by fiziko inside LuaLaTeX: a
     wooden wedge, a shaded ball, and the weight resolved along and normal to
     the slope, with labels set in the page's own text and math fonts.
-16. [`16-fiziko-telescope-plate.tex`](examples/16-fiziko-telescope-plate.tex)
+16. [`16-fiziko-telescope-plate.tex`](examples/16-fiziko-telescope-plate/16-fiziko-telescope-plate.tex)
     -- a Keplerian telescope in which every ray is refracted by fiziko's
     tracing macro; the focus and the exit pupil, where the eye is placed, are
     found where computed rays cross the axis.
-17. [`17-fiziko-terrestrial-globe.tex`](examples/17-fiziko-terrestrial-globe.tex)
+17. [`17-fiziko-terrestrial-globe.tex`](examples/17-fiziko-terrestrial-globe/17-fiziko-terrestrial-globe.tex)
     -- the earth from three stations using fiziko's globe with its built-in
     coastlines, plus a border row of small globes turned by equal steps.
-18. [`18-fiziko-mechanics-primer.tex`](examples/18-fiziko-mechanics-primer.tex)
+18. [`18-fiziko-mechanics-primer.tex`](examples/18-fiziko-mechanics-primer/18-fiziko-mechanics-primer.tex)
     -- a two-column chapter with a loaded cart, a lever in balance, and a
     pendulum, each drawn in place in its column.
-19. [`19-fiziko-knots-plate.tex`](examples/19-fiziko-knots-plate.tex) --
+19. [`19-fiziko-knots-plate.tex`](examples/19-fiziko-knots-plate/19-fiziko-knots-plate.tex) --
     trefoil, cinquefoil, and septafoil cords from one formula each, with
     fiziko finding the crossings and shading the rope.
-20. [`20-fiziko-phases-of-the-moon.tex`](examples/20-fiziko-phases-of-the-moon.tex)
+20. [`20-fiziko-phases-of-the-moon.tex`](examples/20-fiziko-phases-of-the-moon/20-fiziko-phases-of-the-moon.tex)
     -- the moon in eight orbital positions under one fixed light, and the
     same eight phases as seen from the earth by turning the light about a
     fixed sphere.
@@ -107,7 +108,8 @@ through `luamplib`.
 ## Build
 
 The quickest route is the script for your shell, run from the repository
-root. Both compile every example into `build/` and skip the fiziko examples
+root. Both compile every example into its own `build/<example-name>/` directory
+(including logs and temporary files) and skip the fiziko examples
 unless a fiziko checkout is given:
 
 ```powershell
@@ -148,8 +150,9 @@ $names = @(
   '14-patent-drawing-sheet'
 )
 foreach ($name in $names) {
+  New-Item -ItemType Directory -Force "build/$name" | Out-Null
   lualatex -interaction=nonstopmode -halt-on-error `
-    -output-directory=build "examples/$name.tex"
+    -output-directory="build/$name" "examples/$name/$name.tex"
 }
 ```
 
@@ -168,8 +171,9 @@ for name in \
   13-cooling-curve-graph-paper \
   14-patent-drawing-sheet
 do
+  mkdir -p "build/$name"
   lualatex -interaction=nonstopmode -halt-on-error \
-    -output-directory=build "examples/$name.tex"
+    -output-directory="build/$name" "examples/$name/$name.tex"
 done
 ```
 
@@ -198,9 +202,10 @@ $names = @(
   '09-fiziko-shading-atlas'
 )
 foreach ($name in $names) {
-  # -job-name is required by MiKTeX's mpost; omit it on TeX Live (see below).
+  New-Item -ItemType Directory -Force "build/$name" | Out-Null
+  # MiKTeX only; for TeX Live on Windows use build.ps1 above.
   mpost -interaction=nonstopmode -halt-on-error `
-    -job-name=$name -output-directory=build "examples/$name.mp"
+    -job-name=$name -output-directory="build/$name" "examples/$name/$name.mp"
 }
 ```
 
@@ -214,19 +219,24 @@ for name in \
   08-fiziko-atwood-machine \
   09-fiziko-shading-atlas
 do
-  # Run from inside build/: TeX Live's mpost cannot read the mpx file its
-  # btex step writes when -output-directory is used.
-  (cd build && mpost -interaction=nonstopmode -halt-on-error \
-    "../examples/$name.mp")
+  mkdir -p "build/$name"
+  # Run inside the example's output directory: TeX Live cannot read the
+  # mpx file its btex step writes when -output-directory is used.
+  (cd "build/$name" && mpost -interaction=nonstopmode -halt-on-error \
+    "../../examples/$name/$name.mp")
 done
 ```
 
-Each result is named `build/<example-name>-1.eps`. The two distributions
+Each result is named `build/<example-name>/<example-name>-1.eps`. The two distributions
 disagree about the job-name flag: MiKTeX's `mpost` (3.00, checked September
 2026) crashes with an access violation at the first `btex` label unless
 `-job-name=<name>` is given, while TeX Live's `mpost` rejects that spelling
 and needs no flag at all because the job name defaults to the file's basename.
-`build.ps1` detects MiKTeX and adds the flag; `build.sh` never does. Convert
+`build.ps1` detects MiKTeX and adds the flag; `build.sh` never does.
+For TeX Live, both scripts run MetaPost inside the example's output directory.
+Both scripts find the source by basename through `MPINPUTS` to avoid a
+Windows MetaPost crash when passing parent-directory paths. Under Git Bash,
+`build.sh` uses Windows paths and semicolon separators for `MPINPUTS`. Convert
 the EPS files to
 PDF or PNG with Ghostscript; do not request PDF directly from MetaPost without
 checking the file signature. Every source uses `prologues := 3` so labels are
@@ -256,8 +266,9 @@ $names = @(
   '20-fiziko-phases-of-the-moon'
 )
 foreach ($name in $names) {
+  New-Item -ItemType Directory -Force "build/$name" | Out-Null
   lualatex -interaction=nonstopmode -halt-on-error `
-    -output-directory=build "examples/$name.tex"
+    -output-directory="build/$name" "examples/$name/$name.tex"
 }
 ```
 
@@ -273,8 +284,9 @@ for name in \
   19-fiziko-knots-plate \
   20-fiziko-phases-of-the-moon
 do
+  mkdir -p "build/$name"
   lualatex -interaction=nonstopmode -halt-on-error \
-    -output-directory=build "examples/$name.tex"
+    -output-directory="build/$name" "examples/$name/$name.tex"
 done
 ```
 

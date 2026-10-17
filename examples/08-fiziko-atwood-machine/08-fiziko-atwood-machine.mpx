@@ -1,0 +1,35 @@
+% Written by metapost version 2.11
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n0="cmmi10";
+_s("m",_n0,1.00000,0.0000,0.0000,);
+_n1="cmr7";
+_s("1",_n1,1.00000,8.7473,-1.4944,);
+setbounds _p to (0,-1.4944)--(13.2167,-1.4944)--
+ (13.2167,4.2895)--(0,4.2895)--cycle;
+_p endgroup
+mpxbreak
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n0="cmmi10";
+_s("m",_n0,1.00000,0.0000,0.0000,);
+_n1="cmr7";
+_s("2",_n1,1.00000,8.7473,-1.4944,);
+setbounds _p to (0,-1.4944)--(13.2167,-1.4944)--
+ (13.2167,4.2895)--(0,4.2895)--cycle;
+_p endgroup
+mpxbreak
+begingroup save _p,_r,_s,_n; picture _p; _p=nullpicture;
+string _n[];
+vardef _s(expr _t,_f,_m,_x,_y)(text _c)=
+  addto _p also _t infont _f scaled _m shifted (_x,_y) _c; enddef;
+_n2="cmr10";
+_s("acceleration",_n2,1.00000,0.0000,0.0000,);
+setbounds _p to (0,0.0000)--(51.5014,0.0000)--
+ (51.5014,6.9185)--(0,6.9185)--cycle;
+_p endgroup
+mpxbreak
