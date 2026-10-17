@@ -116,6 +116,13 @@ unless a fiziko checkout is given:
 .\build.ps1 -Fiziko ..\fiziko            # PowerShell 7
 ```
 
+Unless `TEXMFCACHE` is already set, the PowerShell script uses
+`build/tex-cache/` for LuaLaTeX's font cache to
+avoid unwritable system caches and Windows issues with non-ASCII user paths.
+It restores `TEXMFCACHE` after each LuaLaTeX invocation. The first build may
+take longer while the font cache is generated. If an example fails, inspect
+`build/<example-name>/<example-name>.stdout.txt` for the underlying error.
+
 ```sh
 ./build.sh ../fiziko                      # POSIX shell
 ```
